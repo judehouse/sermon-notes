@@ -1,1 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sermon Notes helps you capture, highlight, and organize Scripture-centered notes in a focused workspace.">
+  <title>Sermon Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Syne:wght@500;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f2f2f2;
+      --ink: #121212;
+      --ink-soft: #3f3f3f;
+      --panel: #ffffff;
+      --line: #d8d8d8;
+      --accent-pink: #ef66d4;
+      --accent-lime: #a4e977;
+      --accent-sky: #9fccff;
+      --accent-lemon: #e9ed7f;
+      --accent-coral: #f78e8e;
+      --shadow: 0 14px 38px rgba(0, 0, 0, 0.09);
+      --radius: 24px;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.45;
+      background:
+        radial-gradient(circle at 5% 10%, rgba(159, 204, 255, 0.35), transparent 33%),
+        radial-gradient(circle at 95% 90%, rgba(239, 102, 212, 0.26), transparent 36%),
+        linear-gradient(180deg, #f6f6f6, #f1f1f1 30%, #ededed);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+      padding: 1.3rem 0 4.2rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      position: sticky;
+      top: 0.9rem;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(241, 241, 241, 0.73);
+      border: 1px solid rgba(120, 120, 120, 0.12);
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: "Syne", "Outfit", sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 1.1rem;
+    }
+
+    .brand img {
+      height: 1.8rem;
+      width: auto;
+    }
+
+    nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .cta-btn {
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 600;
+      padding: 0.55rem 1rem;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(10, 10, 10, 0.17);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      align-items: center;
+      gap: clamp(1.7rem, 2.3vw, 3rem);
+      margin-bottom: 4.4rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Syne", "Outfit", sans-serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      letter-spacing: -0.03em;
+      line-height: 1.04;
+      margin-bottom: 0.85rem;
+      max-width: 12ch;
+    }
+
+    .h-em {
+      display: inline;
+      box-shadow: inset 0 -0.45em 0 var(--accent-pink);
+      border-radius: 0.1em;
+    }
+
+    .hero-copy p {
+      max-width: 44ch;
+      color: var(--ink-soft);
+      margin-bottom: 1.4rem;
+      font-size: clamp(1.02rem, 2vw, 1.15rem);
+    }
+
+    .quick-notes {
+      list-style: none;
+      display: grid;
+      gap: 0.58rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .quick-notes li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 500;
+      color: #252525;
+    }
+
+    .dot {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      background: var(--accent-lime);
+      border: 1px solid rgba(10, 10, 10, 0.3);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-soft {
+      border: 1px solid #a5a5a5;
+      border-radius: 999px;
+      padding: 0.55rem 1rem;
+      color: #222;
+      background: rgba(255, 255, 255, 0.55);
+      font-weight: 600;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .btn-soft:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    .canvas-wrap {
+      background: linear-gradient(180deg, #f9f9f9, #f6f6f6);
+      border: 1px solid #dedede;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      border-bottom: 1px solid #e1e1e1;
+      padding-bottom: 0.72rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .tool-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tool-icons span {
+      width: 1.95rem;
+      height: 1.95rem;
+      border: 1px solid #cecece;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+    }
+
+    .tool-icons span img {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .swatches {
+      display: inline-flex;
+      border: 1px solid #d4d4d4;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .swatches i {
+      width: 1.3rem;
+      height: 1.3rem;
+      display: block;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 1fr 0.86fr;
+      border: 1px solid #d8d8d8;
+      border-radius: 17px;
+      overflow: hidden;
+      min-height: 405px;
+      background: #f7f7f7;
+    }
+
+    .left-canvas {
+      position: relative;
+      padding: 1.3rem;
+      border-right: 1px solid #dadada;
+    }
+
+    .scribble {
+      font-family: "Syne", "Outfit", sans-serif;
+      font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+      font-weight: 700;
+      width: fit-content;
+      margin-top: 8.8rem;
+      margin-left: 0.4rem;
+      box-shadow: inset 0 -0.45em 0 var(--accent-lime);
+      border-radius: 0.08em;
+      position: relative;
+    }
+
+    .scribble::before,
+    .scribble::after {
+      position: absolute;
+      color: var(--accent-sky);
+      font-weight: 400;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .scribble::before {
+      content: "↺";
+      left: -1.15rem;
+      top: -0.55rem;
+    }
+
+    .scribble::after {
+      content: "✦";
+      right: -0.9rem;
+      top: -0.65rem;
+      color: var(--accent-pink);
+    }
+
+    .verse-panel {
+      background: var(--panel);
+      padding: 1.5rem 1.2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .verse-panel h2 {
+      font-family: "Syne", "Outfit", sans-serif;
+      font-size: clamp(1.8rem, 2.8vw, 2.35rem);
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.02em;
+    }
+
+    .verse-panel p {
+      font-size: clamp(1rem, 1.5vw, 1.22rem);
+      line-height: 1.35;
+      max-width: 22ch;
+    }
+
+    .hl-pink {
+      box-shadow: inset 0 -0.52em 0 rgba(239, 102, 212, 0.58);
+      border-radius: 0.05em;
+    }
+
+    .hl-lime {
+      box-shadow: inset 0 -0.26em 0 rgba(164, 233, 119, 0.55);
+      border-radius: 0.05em;
+    }
+
+    .panel-footer {
+      border-top: 1px solid #dadada;
+      padding-top: 0.85rem;
+      margin-top: 1.3rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: #747474;
+      font-size: 0.8rem;
+    }
+
+    .panel-footer img {
+      height: 1.5rem;
+      width: auto;
+      opacity: 0.9;
+    }
+
+    .section {
+      margin-bottom: 4rem;
+    }
+
+    .section h3 {
+      font-family: "Syne", "Outfit", sans-serif;
+      font-size: clamp(1.65rem, 3vw, 2.5rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.9rem;
+    }
+
+    .section > p {
+      color: #4d4d4d;
+      max-width: 60ch;
+      margin-bottom: 1.4rem;
+      font-size: 1.03rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.95rem;
+    }
+
+    .feature {
+      border: 1px solid #d8d8d8;
+      border-radius: 20px;
+      padding: 1rem;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(249, 249, 249, 0.93));
+      min-height: 170px;
+      box-shadow: 0 4px 14px rgba(10, 10, 10, 0.04);
+    }
+
+    .feature strong {
+      font-family: "Syne", "Outfit", sans-serif;
+      font-size: 1.14rem;
+      margin-bottom: 0.55rem;
+      display: inline-block;
+    }
+
+    .feature p {
+      color: #4b4b4b;
+    }
+
+    .tag {
+      display: inline-flex;
+      margin-bottom: 0.7rem;
+      padding: 0.22rem 0.62rem;
+      border: 1px solid #bdbdbd;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #313131;
+      letter-spacing: 0.01em;
+    }
+
+    .flow {
+      border: 1px solid #d8d8d8;
+      border-radius: 24px;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 8px 26px rgba(12, 12, 12, 0.05);
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.25rem;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .flow-step:last-child {
+      border-bottom: none;
+    }
+
+    .count {
+      font-family: "Syne", "Outfit", sans-serif;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: 1px solid #111;
+      display: grid;
+      place-items: center;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .cta {
+      text-align: center;
+      border: 1px solid #d8d8d8;
+      border-radius: 28px;
+      padding: clamp(1.6rem, 4vw, 2.3rem);
+      background:
+        radial-gradient(circle at top right, rgba(239, 102, 212, 0.14), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(164, 233, 119, 0.18), transparent 45%),
+        rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow);
+    }
+
+    .cta h4 {
+      font-family: "Syne", "Outfit", sans-serif;
+      font-size: clamp(1.5rem, 3.1vw, 2.2rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.55rem;
+    }
+
+    .cta p {
+      color: #474747;
+      margin-bottom: 1rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .reveal.on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      margin-top: 2rem;
+      color: #696969;
+      font-size: 0.83rem;
+      text-align: center;
+    }
+
+    @media (max-width: 990px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        flex-wrap: wrap;
+        border-radius: 22px;
+        justify-content: center;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .site {
+        width: min(1180px, 94%);
+      }
+
+      .stage {
+        grid-template-columns: 1fr;
+      }
+
+      .left-canvas {
+        min-height: 170px;
+        border-right: none;
+        border-bottom: 1px solid #dadada;
+      }
+
+      .scribble {
+        margin-top: 3rem;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    <header class="topbar">
+      <a class="brand" href="#">
+        <img src="assets/sermon-notes-logo-mark.svg" alt="Sermon Notes logo">
+        <span>Sermon Notes</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#flow">How It Works</a>
+        <a href="#early">Early Access</a>
+      </nav>
+      <a class="cta-btn" href="#early">Join Early Access</a>
+    </header>
+
+    <main>
+      <section class="hero reveal">
+        <div class="hero-copy">
+          <h1>
+            Take sermon notes that stay
+            <span class="h-em">anchored in Scripture.</span>
+          </h1>
+          <p>
+            Sermon Notes combines handwriting tools, text highlighting, and verse-focused layouts so your notes stay clear during the message and useful all week.
+          </p>
+          <ul class="quick-notes">
+            <li><span class="dot"></span>Draw, type, erase, and annotate in one focused canvas</li>
+            <li><span class="dot"></span>Keep key verses front and center while you write</li>
+            <li><span class="dot"></span>Review and share your notes after church</li>
+          </ul>
+          <div class="hero-actions">
+            <a class="cta-btn" href="#early">Get Early Access</a>
+            <a class="btn-soft" href="#features">See Features</a>
+          </div>
+        </div>
+
+        <div class="canvas-wrap">
+          <div class="toolbar" aria-hidden="true">
+            <div class="tool-icons">
+              <span><img src="assets/draw.svg" alt=""></span>
+              <span><img src="assets/highlight.svg" alt=""></span>
+              <span><img src="assets/text.svg" alt=""></span>
+              <span><img src="assets/erase.svg" alt=""></span>
+              <span><img src="assets/undo.svg" alt=""></span>
+              <span><img src="assets/redo.svg" alt=""></span>
+            </div>
+            <div class="swatches">
+              <i style="background:#111111"></i>
+              <i style="background: var(--accent-coral)"></i>
+              <i style="background: var(--accent-lemon)"></i>
+              <i style="background: var(--accent-lime)"></i>
+              <i style="background: var(--accent-sky)"></i>
+              <i style="background: var(--accent-pink)"></i>
+            </div>
+          </div>
+
+          <div class="stage">
+            <div class="left-canvas">
+              <p class="scribble">text tool used here</p>
+            </div>
+            <article class="verse-panel">
+              <div>
+                <h2>John 3:16</h2>
+                <p>
+                  <span class="hl-pink">For God so loved the world, that he gave</span>
+                  his one and only Son, that whoever believes in him
+                  <span class="hl-lime">should not perish</span> but have eternal life.
+                </p>
+              </div>
+              <div class="panel-footer">
+                <img src="assets/sermon-notes-logo.svg" alt="Sermon Notes wordmark">
+                <span>Built for Scripture-centered note taking</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section reveal">
+        <h3>Built for the rhythm of a real sermon.</h3>
+        <p>
+          Sermon Notes is designed to stay out of your way while you listen, then become your best review tool afterward.
+        </p>
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="tag">CAPTURE</span>
+            <strong>Fast marking tools</strong>
+            <p>Switch between pen, highlighter, text, and erase instantly so you can keep up with every point.</p>
+          </article>
+          <article class="feature">
+            <span class="tag">FOCUS</span>
+            <strong>Verse-first layout</strong>
+            <p>Keep the passage visible while your notes live beside it, making application and context easier to retain.</p>
+          </article>
+          <article class="feature">
+            <span class="tag">REVIEW</span>
+            <strong>Readable notes all week</strong>
+            <p>Return to each sermon with clean highlights and clear structure that supports prayer and reflection.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="flow" class="section reveal">
+        <h3>Simple workflow, every Sunday.</h3>
+        <div class="flow">
+          <div class="flow-step">
+            <span class="count">01</span>
+            <p>Open your sermon session and load the day’s Scripture passage.</p>
+          </div>
+          <div class="flow-step">
+            <span class="count">02</span>
+            <p>Write and highlight in real time as key ideas and references are shared.</p>
+          </div>
+          <div class="flow-step">
+            <span class="count">03</span>
+            <p>Revisit your notes during the week to pray, reflect, and apply what you heard.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="early" class="cta reveal">
+        <h4>Launching soon.</h4>
+        <p>Join early access to be first to try Sermon Notes and help shape the release.</p>
+        <a class="cta-btn" href="mailto:hello@sermonnotes.app?subject=Early%20Access%20-%20Sermon%20Notes">Request Invite</a>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Sermon Notes
+    </footer>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("on");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    document.getElementById("year").textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>
