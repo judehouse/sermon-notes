@@ -5,23 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Sermon Notes helps you capture, highlight, and organize Scripture-centered notes in a focused workspace.">
   <title>Sermon Notes</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Syne:wght@500;700;800&amp;display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #f2f2f2;
-      --ink: #121212;
-      --ink-soft: #3f3f3f;
-      --panel: #ffffff;
-      --line: #d8d8d8;
-      --accent-pink: #ef66d4;
-      --accent-lime: #a4e977;
+      --paper: #e8e8e8;
+      --paper-deep: #dddddd;
+      --ink: #0f0f0f;
+      --ink-soft: #2d2d2d;
+      --panel: #ececec;
+      --line: #bcbcbc;
+      --accent-pink: #f079e4;
+      --accent-lime: #94e57c;
       --accent-sky: #9fccff;
-      --accent-lemon: #e9ed7f;
-      --accent-coral: #f78e8e;
-      --shadow: 0 14px 38px rgba(0, 0, 0, 0.09);
-      --radius: 24px;
+      --accent-yellow: #f4db1f;
+      --accent-red: #ff2929;
+      --accent-blue: #356adf;
     }
 
     * {
@@ -31,14 +28,13 @@
     }
 
     body {
-      font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+      font-family: "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
       color: var(--ink);
       min-height: 100vh;
-      line-height: 1.45;
+      line-height: 1.42;
       background:
-        radial-gradient(circle at 5% 10%, rgba(159, 204, 255, 0.35), transparent 33%),
-        radial-gradient(circle at 95% 90%, rgba(239, 102, 212, 0.26), transparent 36%),
-        linear-gradient(180deg, #f6f6f6, #f1f1f1 30%, #ededed);
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.012), rgba(0, 0, 0, 0.012) 1px, transparent 1px, transparent 17px),
+        linear-gradient(180deg, var(--paper), var(--paper-deep));
     }
 
     img {
@@ -54,7 +50,7 @@
     .site {
       width: min(1180px, 92%);
       margin: 0 auto;
-      padding: 1.3rem 0 4.2rem;
+      padding: 1.1rem 0 4rem;
     }
 
     .topbar {
@@ -62,54 +58,48 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      margin-bottom: 2.5rem;
-      position: sticky;
-      top: 0.9rem;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(241, 241, 241, 0.73);
-      border: 1px solid rgba(120, 120, 120, 0.12);
-      padding: 0.7rem 1rem;
-      border-radius: 999px;
+      margin-bottom: 2.1rem;
+      border-bottom: 1px solid #acacac;
+      padding-bottom: 0.75rem;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      font-family: "Syne", "Outfit", sans-serif;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      font-size: 1.1rem;
+      gap: 0.6rem;
+      font-weight: 780;
+      letter-spacing: -0.01em;
+      font-size: 1.2rem;
+      text-transform: lowercase;
     }
 
     .brand img {
-      height: 1.8rem;
+      height: 1.35rem;
       width: auto;
     }
 
     nav {
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.15rem;
       color: var(--ink-soft);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 500;
+      text-transform: lowercase;
     }
 
     .cta-btn {
       border: 1px solid var(--ink);
       background: var(--ink);
       color: #fff;
-      border-radius: 999px;
+      border-radius: 0;
       font-weight: 600;
-      padding: 0.55rem 1rem;
-      transition: transform 180ms ease, box-shadow 180ms ease;
+      padding: 0.5rem 0.95rem;
+      transition: transform 130ms ease;
     }
 
     .cta-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(10, 10, 10, 0.17);
+      transform: translate(-1px, -1px);
     }
 
     .hero {
@@ -121,18 +111,17 @@
     }
 
     .hero-copy h1 {
-      font-family: "Syne", "Outfit", sans-serif;
       font-size: clamp(2.2rem, 5vw, 4rem);
-      letter-spacing: -0.03em;
+      letter-spacing: -0.05em;
       line-height: 1.04;
       margin-bottom: 0.85rem;
       max-width: 12ch;
+      font-weight: 780;
     }
 
     .h-em {
       display: inline;
-      box-shadow: inset 0 -0.45em 0 var(--accent-pink);
-      border-radius: 0.1em;
+      box-shadow: inset 0 -0.42em 0 rgba(240, 121, 228, 0.8);
     }
 
     .hero-copy p {
@@ -154,15 +143,14 @@
       align-items: center;
       gap: 0.6rem;
       font-weight: 500;
-      color: #252525;
+      color: #1b1b1b;
     }
 
     .dot {
-      width: 0.7rem;
-      height: 0.7rem;
-      border-radius: 50%;
+      width: 0.52rem;
+      height: 0.52rem;
       background: var(--accent-lime);
-      border: 1px solid rgba(10, 10, 10, 0.3);
+      border: 1px solid rgba(10, 10, 10, 0.45);
     }
 
     .hero-actions {
@@ -172,26 +160,24 @@
     }
 
     .btn-soft {
-      border: 1px solid #a5a5a5;
-      border-radius: 999px;
-      padding: 0.55rem 1rem;
+      border: 1px solid #8f8f8f;
+      border-radius: 0;
+      padding: 0.5rem 0.95rem;
       color: #222;
-      background: rgba(255, 255, 255, 0.55);
+      background: transparent;
       font-weight: 600;
-      transition: background 180ms ease, transform 180ms ease;
+      transition: transform 130ms ease;
     }
 
     .btn-soft:hover {
-      background: #fff;
-      transform: translateY(-2px);
+      transform: translate(-1px, -1px);
     }
 
     .canvas-wrap {
-      background: linear-gradient(180deg, #f9f9f9, #f6f6f6);
-      border: 1px solid #dedede;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1rem;
+      background: #ececec;
+      border: 1px solid #a6a6a6;
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.08);
+      padding: 1rem 1rem 1.05rem;
       overflow: hidden;
       position: relative;
     }
@@ -201,9 +187,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.6rem;
-      border-bottom: 1px solid #e1e1e1;
-      padding-bottom: 0.72rem;
-      margin-bottom: 0.85rem;
+      border-bottom: 1px solid #a5a5a5;
+      padding-bottom: 0.68rem;
+      margin-bottom: 0.8rem;
     }
 
     .tool-icons {
@@ -215,11 +201,10 @@
     .tool-icons span {
       width: 1.95rem;
       height: 1.95rem;
-      border: 1px solid #cecece;
-      border-radius: 11px;
+      border: 1px solid #8f8f8f;
       display: grid;
       place-items: center;
-      background: #fff;
+      background: #f6f6f6;
     }
 
     .tool-icons span img {
@@ -229,8 +214,7 @@
 
     .swatches {
       display: inline-flex;
-      border: 1px solid #d4d4d4;
-      border-radius: 999px;
+      border: 1px solid #8f8f8f;
       overflow: hidden;
     }
 
@@ -240,31 +224,55 @@
       display: block;
     }
 
+    .pen-width {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: auto;
+      color: #4c4c4c;
+      font-size: 0.82rem;
+    }
+
+    .track {
+      width: 180px;
+      height: 0.38rem;
+      border: 1px solid #8f8f8f;
+      background: #efefef;
+      position: relative;
+    }
+
+    .track::after {
+      content: "";
+      width: 2.1rem;
+      height: 0.38rem;
+      background: #3d3d3d;
+      position: absolute;
+      left: 18px;
+      top: -1px;
+    }
+
     .stage {
       display: grid;
       grid-template-columns: 1fr 0.86fr;
-      border: 1px solid #d8d8d8;
-      border-radius: 17px;
+      border: 1px solid #9f9f9f;
       overflow: hidden;
       min-height: 405px;
-      background: #f7f7f7;
+      background: #e5e5e5;
     }
 
     .left-canvas {
       position: relative;
       padding: 1.3rem;
-      border-right: 1px solid #dadada;
+      border-right: 1px solid #a8a8a8;
     }
 
     .scribble {
-      font-family: "Syne", "Outfit", sans-serif;
-      font-size: clamp(1.1rem, 1.8vw, 1.45rem);
-      font-weight: 700;
+      font-size: clamp(1.2rem, 1.9vw, 1.52rem);
+      font-weight: 740;
       width: fit-content;
       margin-top: 8.8rem;
       margin-left: 0.4rem;
-      box-shadow: inset 0 -0.45em 0 var(--accent-lime);
-      border-radius: 0.08em;
+      box-shadow: inset 0 -0.2em 0 rgba(148, 229, 124, 0.9);
       position: relative;
     }
 
@@ -273,25 +281,25 @@
       position: absolute;
       color: var(--accent-sky);
       font-weight: 400;
-      font-size: 1.1rem;
+      font-size: 1.42rem;
       line-height: 1;
     }
 
     .scribble::before {
       content: "↺";
       left: -1.15rem;
-      top: -0.55rem;
+      top: -0.7rem;
     }
 
     .scribble::after {
       content: "✦";
-      right: -0.9rem;
-      top: -0.65rem;
+      right: -0.8rem;
+      top: -0.8rem;
       color: var(--accent-pink);
     }
 
     .verse-panel {
-      background: var(--panel);
+      background: #f2f2f2;
       padding: 1.5rem 1.2rem 1.2rem;
       display: flex;
       flex-direction: column;
@@ -299,37 +307,39 @@
     }
 
     .verse-panel h2 {
-      font-family: "Syne", "Outfit", sans-serif;
-      font-size: clamp(1.8rem, 2.8vw, 2.35rem);
-      margin-bottom: 0.7rem;
-      letter-spacing: -0.02em;
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      margin-bottom: 1rem;
+      letter-spacing: -0.045em;
+      line-height: 0.92;
+      font-weight: 790;
     }
 
     .verse-panel p {
-      font-size: clamp(1rem, 1.5vw, 1.22rem);
-      line-height: 1.35;
+      font-size: clamp(1.2rem, 2.5vw, 3rem);
+      line-height: 1.18;
       max-width: 22ch;
+      letter-spacing: -0.02em;
     }
 
     .hl-pink {
-      box-shadow: inset 0 -0.52em 0 rgba(239, 102, 212, 0.58);
-      border-radius: 0.05em;
+      box-shadow: inset 0 -0.58em 0 rgba(240, 121, 228, 0.78);
     }
 
     .hl-lime {
-      box-shadow: inset 0 -0.26em 0 rgba(164, 233, 119, 0.55);
-      border-radius: 0.05em;
+      box-shadow: inset 0 -0.18em 0 rgba(148, 229, 124, 0.9);
     }
 
     .panel-footer {
-      border-top: 1px solid #dadada;
+      border-top: 1px solid #9f9f9f;
       padding-top: 0.85rem;
       margin-top: 1.3rem;
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
-      color: #747474;
-      font-size: 0.8rem;
+      color: #555;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
     .panel-footer img {
@@ -339,14 +349,14 @@
     }
 
     .section {
-      margin-bottom: 4rem;
+      margin-bottom: 3.7rem;
     }
 
     .section h3 {
-      font-family: "Syne", "Outfit", sans-serif;
       font-size: clamp(1.65rem, 3vw, 2.5rem);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       margin-bottom: 0.9rem;
+      font-weight: 760;
     }
 
     .section > p {
@@ -359,24 +369,26 @@
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.95rem;
+      gap: 1rem;
     }
 
     .feature {
-      border: 1px solid #d8d8d8;
-      border-radius: 20px;
+      border: 1px solid #a2a2a2;
       padding: 1rem;
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(249, 249, 249, 0.93));
+      background: #efefef;
       min-height: 170px;
-      box-shadow: 0 4px 14px rgba(10, 10, 10, 0.04);
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .feature:nth-child(2) {
+      transform: translateY(8px);
     }
 
     .feature strong {
-      font-family: "Syne", "Outfit", sans-serif;
       font-size: 1.14rem;
       margin-bottom: 0.55rem;
       display: inline-block;
+      letter-spacing: -0.01em;
     }
 
     .feature p {
@@ -387,8 +399,7 @@
       display: inline-flex;
       margin-bottom: 0.7rem;
       padding: 0.22rem 0.62rem;
-      border: 1px solid #bdbdbd;
-      border-radius: 999px;
+      border: 1px solid #8f8f8f;
       font-size: 0.75rem;
       font-weight: 600;
       color: #313131;
@@ -396,11 +407,10 @@
     }
 
     .flow {
-      border: 1px solid #d8d8d8;
-      border-radius: 24px;
+      border: 1px solid #9d9d9d;
       padding: 1rem;
-      background: rgba(255, 255, 255, 0.66);
-      box-shadow: 0 8px 26px rgba(12, 12, 12, 0.05);
+      background: #ededed;
+      box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.06);
       display: grid;
       gap: 0.65rem;
     }
@@ -411,7 +421,7 @@
       align-items: center;
       gap: 0.75rem;
       padding: 0.65rem 0.25rem;
-      border-bottom: 1px solid #e3e3e3;
+      border-bottom: 1px solid #b0b0b0;
     }
 
     .flow-step:last-child {
@@ -419,10 +429,9 @@
     }
 
     .count {
-      font-family: "Syne", "Outfit", sans-serif;
       width: 2rem;
       height: 2rem;
-      border-radius: 50%;
+      border-radius: 0;
       border: 1px solid #111;
       display: grid;
       place-items: center;
@@ -432,21 +441,16 @@
 
     .cta {
       text-align: center;
-      border: 1px solid #d8d8d8;
-      border-radius: 28px;
+      border: 1px dashed #818181;
       padding: clamp(1.6rem, 4vw, 2.3rem);
-      background:
-        radial-gradient(circle at top right, rgba(239, 102, 212, 0.14), transparent 40%),
-        radial-gradient(circle at bottom left, rgba(164, 233, 119, 0.18), transparent 45%),
-        rgba(255, 255, 255, 0.78);
-      box-shadow: var(--shadow);
+      background: rgba(240, 240, 240, 0.78);
     }
 
     .cta h4 {
-      font-family: "Syne", "Outfit", sans-serif;
       font-size: clamp(1.5rem, 3.1vw, 2.2rem);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       margin-bottom: 0.55rem;
+      font-weight: 760;
     }
 
     .cta p {
@@ -456,8 +460,8 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 600ms ease, transform 600ms ease;
+      transform: translateY(14px);
+      transition: opacity 520ms ease, transform 520ms ease;
     }
 
     .reveal.on {
@@ -467,7 +471,7 @@
 
     footer {
       margin-top: 2rem;
-      color: #696969;
+      color: #4c4c4c;
       font-size: 0.83rem;
       text-align: center;
     }
@@ -485,8 +489,8 @@
     @media (max-width: 720px) {
       .topbar {
         flex-wrap: wrap;
-        border-radius: 22px;
         justify-content: center;
+        gap: 0.75rem;
       }
 
       nav {
@@ -503,10 +507,24 @@
         grid-template-columns: 1fr;
       }
 
+      .toolbar {
+        flex-wrap: wrap;
+      }
+
+      .pen-width {
+        width: 100%;
+        margin-left: 0;
+        justify-content: flex-end;
+      }
+
+      .track {
+        width: 140px;
+      }
+
       .left-canvas {
         min-height: 170px;
         border-right: none;
-        border-bottom: 1px solid #dadada;
+        border-bottom: 1px solid #9f9f9f;
       }
 
       .scribble {
@@ -567,11 +585,15 @@
             </div>
             <div class="swatches">
               <i style="background:#111111"></i>
-              <i style="background: var(--accent-coral)"></i>
-              <i style="background: var(--accent-lemon)"></i>
+              <i style="background: var(--accent-red)"></i>
+              <i style="background: var(--accent-yellow)"></i>
               <i style="background: var(--accent-lime)"></i>
-              <i style="background: var(--accent-sky)"></i>
+              <i style="background: var(--accent-blue)"></i>
               <i style="background: var(--accent-pink)"></i>
+            </div>
+            <div class="pen-width" aria-hidden="true">
+              <span class="track"></span>
+              <span>2</span>
             </div>
           </div>
 
