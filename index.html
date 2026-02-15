@@ -195,12 +195,11 @@
     }
 
     .media-points li {
-      display: grid;
-      grid-template-columns: 0.62rem 1fr;
+      display: flex;
       gap: 0.5rem;
       color: #1f1f25;
       font-size: 0.98rem;
-      align-items: start;
+      align-items: flex-start;
     }
 
     .media-points li::before {
@@ -266,7 +265,7 @@
       letter-spacing: -0.02em;
       margin-bottom: 0.62rem;
       font-weight: 700;
-      text-transform: lowercase;
+      text-transform: capitalize;
     }
 
     .feature-list {
@@ -276,10 +275,9 @@
     }
 
     .feature-list li {
-      display: grid;
-      grid-template-columns: 0.65rem 1fr;
+      display: flex;
       gap: 0.54rem;
-      align-items: start;
+      align-items: flex-start;
       color: #23232a;
       font-size: 0.99rem;
     }
@@ -358,6 +356,54 @@
       font-size: 0.98rem;
     }
 
+    .coming-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.72rem;
+    }
+
+    .coming-card {
+      display: grid;
+      grid-template-columns: 1.95rem 1fr;
+      gap: 0.64rem;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.58);
+      padding: 0.76rem;
+    }
+
+    .coming-icon {
+      width: 1.85rem;
+      height: 1.85rem;
+      border: 1px solid var(--line-dark);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.7);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .coming-icon img {
+      width: 1.02rem;
+      height: 1.02rem;
+    }
+
+    .coming-copy h5 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      font-weight: 730;
+      text-transform: capitalize;
+      margin-bottom: 0.16rem;
+      color: #1b1b22;
+    }
+
+    .coming-copy p {
+      font-size: 0.93rem;
+      color: #373741;
+      line-height: 1.34;
+    }
+
     footer {
       margin-top: 2.5rem;
       text-align: center;
@@ -401,6 +447,10 @@
       }
 
       .cols {
+        grid-template-columns: 1fr;
+      }
+
+      .coming-grid {
         grid-template-columns: 1fr;
       }
 
@@ -463,7 +513,7 @@
         </p>
         <div class="cols">
           <article class="card">
-            <h4>available now</h4>
+            <h4>Available Now</h4>
             <ul class="feature-list">
               <li>Tap drawn Scripture references to open a verse popup, write directly on it, and tuck it away when you are done.</li>
               <li>Infinite canvas with no limits, so you can capture your processing and cross references any way you want.</li>
@@ -477,13 +527,45 @@
           </article>
 
           <article class="card">
-            <h4>coming soon</h4>
-            <ul class="feature-list">
-              <li><strong>Note sharing:</strong> Easily share and compare notes with others in-app for seamless collaboration.</li>
-              <li><strong>Dark mode:</strong> Better visibility in dim teaching environments when bright white is not ideal.</li>
-              <li><strong>Smart shapes:</strong> Intelligent rounding and snapping for quicker, cleaner diagrams and outlines.</li>
-              <li><strong>Group note-taking sessions:</strong> Create an Event, share an Event Code, and automatically compile participant notes into one gallery view.</li>
-            </ul>
+            <h4>Coming Soon</h4>
+            <div class="coming-grid">
+              <article class="coming-card">
+                <span class="coming-icon">
+                  <img src="assets/icon-note-sharing.svg" alt="" aria-hidden="true">
+                </span>
+                <div class="coming-copy">
+                  <h5>Note Sharing</h5>
+                  <p>Easily share and compare notes with others inside the app for seamless collaboration.</p>
+                </div>
+              </article>
+              <article class="coming-card">
+                <span class="coming-icon">
+                  <img src="assets/icon-dark-mode.svg" alt="" aria-hidden="true">
+                </span>
+                <div class="coming-copy">
+                  <h5>Dark Mode</h5>
+                  <p>Better visibility in dim teaching environments when bright white is not ideal.</p>
+                </div>
+              </article>
+              <article class="coming-card">
+                <span class="coming-icon">
+                  <img src="assets/icon-smart-shapes.svg" alt="" aria-hidden="true">
+                </span>
+                <div class="coming-copy">
+                  <h5>Smart Shapes</h5>
+                  <p>Intelligent rounding and snapping for quicker, cleaner diagrams and outlines.</p>
+                </div>
+              </article>
+              <article class="coming-card">
+                <span class="coming-icon">
+                  <img src="assets/icon-group-session.svg" alt="" aria-hidden="true">
+                </span>
+                <div class="coming-copy">
+                  <h5>Group Note Sessions</h5>
+                  <p>Create an Event, share an Event Code, and automatically compile participant notes into one gallery view.</p>
+                </div>
+              </article>
+            </div>
           </article>
         </div>
       </section>
@@ -497,7 +579,7 @@
             <p class="price-note">Buy Sermon Notes once and own it forever. No subscription, no paywall for updates and support.</p>
           </article>
           <article class="card">
-            <h4>why this model</h4>
+            <h4>Why This Model</h4>
             <ul class="feature-list">
               <li>You should not have to rent your church notes every month.</li>
               <li>We want long-term trust, not subscription fatigue.</li>
