@@ -13,14 +13,15 @@
   <link rel="manifest" href="/site.webmanifest">
   <style>
     :root {
-      --paper: #f8f8f7;
-      --paper-deep: #f4f4f3;
+      --paper: #fbfbfb;
+      --paper-deep: #f8f8f9;
       --ink: #111118;
       --ink-soft: #3d3d45;
       --line: rgba(74, 74, 94, 0.22);
       --line-dark: rgba(44, 44, 58, 0.46);
       --pink: #f09be7;
       --lime: #9ce987;
+      --mint: #94efb2;
       --sky: #9fccff;
       --card: rgba(255, 255, 255, 0.7);
       --card-deep: rgba(255, 255, 255, 0.52);
@@ -38,9 +39,9 @@
       min-height: 100vh;
       line-height: 1.38;
       background:
-        radial-gradient(circle at 9% 8%, rgba(156, 204, 255, 0.22), transparent 26%),
-        radial-gradient(circle at 86% 14%, rgba(240, 155, 231, 0.18), transparent 28%),
-        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.009), rgba(0, 0, 0, 0.009) 1px, transparent 1px, transparent 24px),
+        radial-gradient(circle at 10% 10%, rgba(156, 204, 255, 0.11), transparent 30%),
+        radial-gradient(circle at 84% 12%, rgba(240, 155, 231, 0.1), transparent 32%),
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.004), rgba(0, 0, 0, 0.004) 1px, transparent 1px, transparent 36px),
         linear-gradient(180deg, var(--paper), var(--paper-deep));
     }
 
@@ -85,35 +86,107 @@
       display: inline-flex;
       gap: 1.45rem;
       color: var(--ink-soft);
-      font-size: 0.92rem;
-      font-weight: 560;
+      font-size: 1rem;
+      font-weight: 660;
       letter-spacing: 0.01em;
-      text-transform: lowercase;
+      text-transform: none;
+      align-items: center;
+    }
+
+    .nav-link {
+      position: relative;
+      display: inline-block;
+      color: #181821;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: -0.05em;
+      right: -0.05em;
+      bottom: -0.15em;
+      height: 0.46em;
+      border-bottom: 2px solid var(--mint);
+      border-radius: 80% 70%;
+      transform: scaleX(0) rotate(-2deg);
+      transform-origin: left center;
+      opacity: 0;
+      transition: transform 90ms ease, opacity 90ms ease;
+      pointer-events: none;
     }
 
     .cta-btn {
       border: 1px solid var(--ink);
       background: rgba(17, 17, 24, 0.94);
       color: #fff;
-      border-radius: 8px;
-      padding: 0.52rem 0.92rem;
-      font-weight: 640;
+      border-radius: 0;
+      padding: 0.58rem 1.04rem;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1;
       white-space: nowrap;
-      transition: transform 120ms ease, background 120ms ease;
+      transition: background 90ms ease, color 90ms ease, border-color 90ms ease;
     }
 
     .cta-btn:hover,
-    .btn-soft:hover {
-      transform: translate(-1px, -1px);
+    .cta-btn:focus-visible {
+      background: var(--mint);
+      border-color: var(--mint);
+      color: #12121a;
     }
 
     .btn-soft {
-      border: 1px solid var(--line-dark);
-      border-radius: 8px;
-      padding: 0.52rem 0.92rem;
-      font-weight: 620;
-      background: rgba(255, 255, 255, 0.3);
-      transition: transform 120ms ease;
+      border: none;
+      border-radius: 0;
+      padding: 0.58rem 0;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #16161e;
+      background: transparent;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      transition: color 90ms ease;
+    }
+
+    .btn-soft::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0.08em;
+      height: 0.28em;
+      border-bottom: 2px solid var(--mint);
+      border-radius: 78% 70%;
+      transform: scaleX(0) rotate(-2deg);
+      transform-origin: left center;
+      opacity: 0;
+      transition: transform 90ms ease, opacity 90ms ease;
+      pointer-events: none;
+    }
+
+    .btn-soft:hover::after,
+    .btn-soft:focus-visible::after,
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after {
+      transform: scaleX(1) rotate(-2deg);
+      opacity: 1;
+    }
+
+    .cta-btn-nav {
+      background: var(--mint);
+      border-color: var(--mint);
+      color: #14141b;
+      padding: 0.66rem 1.2rem;
+      font-size: 1.01rem;
+    }
+
+    .cta-btn-nav:hover,
+    .cta-btn-nav:focus-visible {
+      background: #131313;
+      border-color: #131313;
+      color: #fff;
     }
 
     .hero {
@@ -160,15 +233,16 @@
     .media-text {
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 1.35rem;
+      gap: 1.8rem;
       margin-bottom: 2.8rem;
+      align-items: start;
     }
 
     .media-copy {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, var(--card), var(--card-deep));
-      border-radius: 10px;
-      padding: 1.1rem;
+      border: none;
+      background: transparent;
+      border-radius: 0;
+      padding: 0.1rem 0;
       box-shadow: none;
       align-self: start;
     }
@@ -183,8 +257,9 @@
 
     .media-copy p {
       color: #2e2e35;
-      margin-bottom: 0.72rem;
+      margin-bottom: 0.78rem;
       font-size: 1.01rem;
+      max-width: 58ch;
     }
 
     .media-points {
@@ -212,17 +287,44 @@
     }
 
     .media-figure {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.54);
-      border-radius: 10px;
+      border: none;
+      background: transparent;
+      border-radius: 0;
       box-shadow: none;
-      overflow: hidden;
+      overflow: visible;
       align-self: start;
+      display: flex;
+      justify-content: center;
     }
 
     .media-figure img {
+      width: min(100%, 900px);
+      height: auto;
+    }
+
+    .media-figure--parallax img {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .mockup-band {
+      margin: 0.4rem 0 2.3rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .mockup-band-figure {
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      overflow: visible;
+      width: min(820px, 92%);
+    }
+
+    .mockup-band-figure img {
       width: 100%;
       height: auto;
+      animation: subtle-drift 9s steps(16, end) infinite;
     }
 
     .section {
@@ -297,6 +399,60 @@
       gap: 1.1rem;
       align-items: stretch;
       margin-top: 0.35rem;
+    }
+
+    #pricing {
+      position: relative;
+      isolation: isolate;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 1.45rem 0;
+      margin-top: 0.4rem;
+      overflow: visible;
+    }
+
+    #pricing::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 100vw;
+      transform: translateX(-50%);
+      background: #131313;
+      z-index: -1;
+    }
+
+    #pricing h3,
+    #pricing > p {
+      color: #f1f1f1;
+    }
+
+    #pricing .card,
+    #pricing .price-card {
+      border-color: rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: none;
+    }
+
+    #pricing .card h4,
+    #pricing .feature-list li,
+    #pricing .price-amount {
+      color: #f3f3f3;
+    }
+
+    #pricing .price-label {
+      color: #bdbdca;
+    }
+
+    #pricing .price-note {
+      color: #d9d9e4;
+    }
+
+    #pricing .feature-list li::before {
+      border-color: rgba(156, 233, 135, 0.75);
+      background: var(--lime);
     }
 
     .price-card {
@@ -424,6 +580,30 @@
       transform: translateY(0);
     }
 
+    @keyframes subtle-drift {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(-0.25deg);
+      }
+      50% {
+        transform: translate3d(0, -7px, 0) rotate(0.25deg);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) rotate(-0.25deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .mockup-band-figure img {
+        animation: none;
+      }
+    }
+
     @media (max-width: 1080px) {
       .media-text {
         grid-template-columns: 1fr;
@@ -467,11 +647,11 @@
         <img src="assets/sermon-notes-logo-mark.svg" alt="Sermon Notes logo">
       </a>
       <nav aria-label="Main navigation">
-        <a href="#features">features</a>
-        <a href="#faq">faq</a>
-        <a href="#pricing">pricing</a>
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+        <a class="nav-link" href="#pricing">Pricing</a>
       </nav>
-      <a class="cta-btn" href="mailto:hello@sermonnotes.app?subject=Early%20Access%20-%20Sermon%20Notes">Join Early Access</a>
+      <a class="cta-btn cta-btn-nav" href="mailto:hello@sermonnotes.app?subject=Early%20Access%20-%20Sermon%20Notes">Join Early Access</a>
     </header>
 
     <main id="top">
@@ -501,8 +681,8 @@
             <li>Tool changes, highlights, and references designed for real-time pace.</li>
           </ul>
         </article>
-        <figure class="media-figure">
-          <img src="assets/sermon-notes-mockup.jpg" alt="Sermon Notes app mockup showing infinite canvas and John 3:16 side panel">
+        <figure class="media-figure media-figure--parallax">
+          <img class="parallax-device" data-parallax="0.13" src="assets/ipad-mockup-2.png" alt="Sermon Notes app shown on iPad from an angled perspective">
         </figure>
       </section>
 
@@ -589,6 +769,12 @@
         </div>
       </section>
 
+      <section class="mockup-band reveal" aria-label="Sermon Notes angled iPad mockup">
+        <figure class="mockup-band-figure">
+          <img src="assets/ipad-mockup-1.png" alt="Sermon Notes app shown on iPad mockup">
+        </figure>
+      </section>
+
       <section id="faq" class="section reveal">
         <h3>FAQs</h3>
         <div class="faq-list">
@@ -625,6 +811,40 @@
 
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     document.getElementById("year").textContent = String(new Date().getFullYear());
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const parallaxDevices = Array.from(document.querySelectorAll(".parallax-device"));
+
+    if (!reduceMotion && parallaxDevices.length > 0) {
+      let ticking = false;
+
+      const updateParallax = () => {
+        const viewportMid = window.innerHeight * 0.5;
+
+        parallaxDevices.forEach((el) => {
+          const speed = Number(el.dataset.parallax || 0.12);
+          const rect = el.getBoundingClientRect();
+          const elementMid = rect.top + rect.height * 0.5;
+          const delta = (elementMid - viewportMid) * speed;
+          const offset = Math.max(-38, Math.min(38, delta));
+
+          el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+        });
+
+        ticking = false;
+      };
+
+      const onScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      updateParallax();
+    }
   </script>
 </body>
 </html>
