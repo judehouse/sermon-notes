@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog template styled to match the Sermon Notes single-page site.">
+  <title>Sermon Notes Blog Template</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/sermon-notes-icon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <style>
+    :root {
+      --paper: #fbfbfb;
+      --paper-deep: #f8f8f9;
+      --ink: #111118;
+      --ink-soft: #3d3d45;
+      --line: rgba(74, 74, 94, 0.22);
+      --line-dark: rgba(44, 44, 58, 0.46);
+      --pink: #f09be7;
+      --lime: #9ce987;
+      --mint: #94efb2;
+      --sky: #9fccff;
+      --card: rgba(255, 255, 255, 0.7);
+      --card-deep: rgba(255, 255, 255, 0.52);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.42;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(156, 204, 255, 0.06), transparent 34%),
+        radial-gradient(circle at 84% 12%, rgba(240, 155, 231, 0.055), transparent 36%),
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.003), rgba(0, 0, 0, 0.003) 1px, transparent 1px, transparent 44px),
+        linear-gradient(180deg, var(--paper), var(--paper-deep));
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav-grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.28;
+      z-index: 0;
+      background:
+        linear-gradient(rgba(110, 110, 120, 0.18) 1px, transparent 1px) 0 0 / 46px 46px,
+        linear-gradient(90deg, rgba(110, 110, 120, 0.18) 1px, transparent 1px) 0 0 / 46px 46px,
+        rgba(245, 245, 246, 0.02);
+    }
+
+    .site {
+      width: min(1320px, 95%);
+      margin: 0 auto;
+      padding: 1.35rem 0 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.8rem;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+    }
+
+    .brand img {
+      height: 2.35rem;
+      width: auto;
+    }
+
+    nav {
+      display: inline-flex;
+      gap: 1.45rem;
+      color: var(--ink-soft);
+      font-size: 1rem;
+      font-weight: 660;
+      letter-spacing: 0.01em;
+      align-items: center;
+    }
+
+    .nav-link {
+      position: relative;
+      display: inline-block;
+      color: #181821;
+    }
+
+    .nav-link::after,
+    .btn-soft::after {
+      content: "";
+      position: absolute;
+      left: -0.05em;
+      right: -0.05em;
+      bottom: -0.15em;
+      height: 0.4em;
+      border-bottom: 2px solid var(--mint);
+      border-radius: 80% 70%;
+      transform: scaleX(0) rotate(-2deg);
+      transform-origin: left center;
+      opacity: 0;
+      transition: transform 360ms steps(4, jump-end), opacity 220ms steps(2, end);
+    }
+
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after,
+    .btn-soft:hover::after,
+    .btn-soft:focus-visible::after {
+      transform: scaleX(1) rotate(-2deg);
+      opacity: 1;
+    }
+
+    .cta-btn {
+      border: 1px solid var(--ink);
+      background: rgba(17, 17, 24, 0.94);
+      color: #fff;
+      border-radius: 0;
+      padding: 0.58rem 1.04rem;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+      transform: translate3d(0, 0, 0);
+      transition:
+        background-color 290ms steps(11, end),
+        color 290ms steps(11, end),
+        border-color 290ms steps(11, end),
+        transform 340ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .cta-btn:hover,
+    .cta-btn:focus-visible {
+      background: var(--mint);
+      border-color: var(--mint);
+      color: #12121a;
+      transform: translate3d(0, -1px, 0);
+    }
+
+    .btn-soft {
+      border: none;
+      padding: 0.58rem 0;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #16161e;
+      background: transparent;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .hero {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4.5vw, 4.8rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      font-weight: 820;
+      max-width: 14ch;
+      margin-bottom: 0.82rem;
+    }
+
+    .hero h1 .hl {
+      box-shadow: inset 0 -0.35em 0 rgba(240, 125, 221, 0.52);
+    }
+
+    .hero p {
+      color: var(--ink-soft);
+      font-size: clamp(1.02rem, 1.2vw, 1.16rem);
+      max-width: 74ch;
+      margin-bottom: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .blog-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 1.1rem;
+      align-items: start;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--card), rgba(255, 255, 255, 0.4));
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: none;
+    }
+
+    .post-card {
+      display: grid;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-card h2 {
+      font-size: clamp(1.34rem, 2.5vw, 2rem);
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+    }
+
+    .post-meta {
+      color: #595969;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.035em;
+    }
+
+    .post-card p {
+      color: #32323c;
+      max-width: 70ch;
+      font-size: 0.99rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.46rem;
+      border: 1px solid rgba(70, 70, 85, 0.22);
+      background: rgba(255, 255, 255, 0.62);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 1rem;
+      position: sticky;
+      top: 1rem;
+    }
+
+    .sidebar h3 {
+      font-size: 1.04rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.52rem;
+    }
+
+    .link-list a {
+      color: #23232a;
+      border-bottom: 1px dashed transparent;
+      transition: border-color 160ms ease;
+    }
+
+    .link-list a:hover,
+    .link-list a:focus-visible {
+      border-bottom-color: #23232a;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 0.54rem;
+      align-items: flex-start;
+      color: #23232a;
+      font-size: 0.99rem;
+    }
+
+    .feature-list li::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border: 1px solid rgba(72, 108, 72, 0.62);
+      background: var(--lime);
+      margin-top: 0.34rem;
+    }
+
+    .article-template {
+      border-top: 1px solid var(--line);
+      padding-top: 1.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .article-template h2 {
+      font-size: clamp(1.55rem, 2.6vw, 2.25rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.65rem;
+    }
+
+    .article-body {
+      max-width: 76ch;
+      color: #22222c;
+      font-size: 1.03rem;
+    }
+
+    .article-body > * + * {
+      margin-top: 0.95rem;
+    }
+
+    .article-body h3 {
+      font-size: 1.26rem;
+      letter-spacing: -0.02em;
+      margin-top: 1.2rem;
+    }
+
+    .article-body blockquote {
+      border-left: 2px solid var(--pink);
+      padding: 0.35rem 0 0.35rem 0.9rem;
+      color: #2b2b34;
+      font-size: 1.01rem;
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .article-body ul {
+      padding-left: 1.18rem;
+    }
+
+    .article-body li {
+      margin: 0.26rem 0;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: #555560;
+      font-size: 0.82rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+
+    .reveal.on {
+      animation: reveal-choppy-in 820ms forwards;
+    }
+
+    @keyframes reveal-choppy-in {
+      0% {
+        opacity: 0;
+        transform: translateY(14px);
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      18% {
+        opacity: 0.46;
+        transform: translateY(10px);
+        animation-timing-function: steps(12, end);
+      }
+      88% {
+        opacity: 1;
+        transform: translateY(1px);
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+
+      .reveal.on {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 1050px) {
+      .blog-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .post-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-grid-overlay" aria-hidden="true"></div>
+  <div class="site">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Sermon Notes Home">
+        <img src="assets/sermon-notes-logo-mark.svg" alt="Sermon Notes logo">
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="nav-link" href="#latest">Latest</a>
+        <a class="nav-link" href="#categories">Categories</a>
+        <a class="nav-link" href="#template">Post Template</a>
+      </nav>
+      <a class="cta-btn" href="mailto:hello@sermonnotes.app?subject=Blog%20Update%20Request">Submit Idea</a>
+    </header>
+
+    <main id="top">
+      <section class="hero reveal">
+        <h1>Write posts that feel as clear as your <span class="hl">notes.</span></h1>
+        <p>
+          This is a reusable blog layout in the same style system as the single-page site. Swap in real post data, categories, and links.
+        </p>
+        <div class="hero-actions">
+          <a class="cta-btn" href="#latest">Browse Posts</a>
+          <a class="btn-soft" href="#template">See Full Post Structure</a>
+        </div>
+      </section>
+
+      <section id="latest" class="blog-layout reveal" aria-label="Blog feed and sidebar">
+        <div>
+          <article class="card post-card">
+            <p class="post-meta">Featured • Feb 19, 2026 • 8 min read</p>
+            <h2>How To Build a Weekly Sermon Note Rhythm That Actually Sticks</h2>
+            <p>Start with one repeatable structure: passage, key ideas, applications, and prayer. This template keeps retrieval easy and review practical all week.</p>
+            <div class="tag-row">
+              <span class="tag">Workflow</span>
+              <span class="tag">Study Habits</span>
+              <span class="tag">Featured</span>
+            </div>
+            <a class="btn-soft" href="#template">Read Post</a>
+          </article>
+
+          <div class="post-grid">
+            <article class="card post-card">
+              <p class="post-meta">Feb 15, 2026 • 5 min read</p>
+              <h2>Cross-References Without Breaking Your Focus</h2>
+              <p>A fast method for linking passages while the sermon is still moving, so your notes stay connected but readable.</p>
+              <div class="tag-row">
+                <span class="tag">Bible Study</span>
+                <span class="tag">References</span>
+              </div>
+            </article>
+
+            <article class="card post-card">
+              <p class="post-meta">Feb 8, 2026 • 6 min read</p>
+              <h2>How We Organize Long Series Notes By Theme</h2>
+              <p>Organize by recurring themes, not just date, to make older insights easier to reuse in personal study or group prep.</p>
+              <div class="tag-row">
+                <span class="tag">Organization</span>
+                <span class="tag">Series Notes</span>
+              </div>
+            </article>
+
+            <article class="card post-card">
+              <p class="post-meta">Jan 30, 2026 • 4 min read</p>
+              <h2>Prompt Ideas for Better Post-Sermon Reflection</h2>
+              <p>Quick prompts you can add at the bottom of any note so reflection starts immediately instead of being postponed.</p>
+              <div class="tag-row">
+                <span class="tag">Reflection</span>
+                <span class="tag">Prompts</span>
+              </div>
+            </article>
+
+            <article class="card post-card">
+              <p class="post-meta">Jan 24, 2026 • 7 min read</p>
+              <h2>Small Group-Friendly Note Formats You Can Share</h2>
+              <p>Turn personal notes into discussion-ready summaries in less than ten minutes using a fixed structure and tags.</p>
+              <div class="tag-row">
+                <span class="tag">Small Groups</span>
+                <span class="tag">Sharing</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <aside id="categories" class="sidebar" aria-label="Sidebar">
+          <section class="card">
+            <h3>Categories</h3>
+            <ul class="link-list">
+              <li><a href="#">Sermon Workflow</a></li>
+              <li><a href="#">Bible Study Habits</a></li>
+              <li><a href="#">App Updates</a></li>
+              <li><a href="#">Community Stories</a></li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>Newsletter</h3>
+            <ul class="feature-list">
+              <li>One practical note-taking tactic each week.</li>
+              <li>Feature announcements and launch updates.</li>
+              <li>No clutter, unsubscribe anytime.</li>
+            </ul>
+            <p style="margin-top: 0.86rem;">
+              <a class="cta-btn" href="mailto:hello@sermonnotes.app?subject=Newsletter%20Signup">Join Newsletter</a>
+            </p>
+          </section>
+        </aside>
+      </section>
+
+      <section id="template" class="article-template reveal">
+        <h2>Single Post Template</h2>
+        <p class="post-meta">Replace the text below with your actual post content.</p>
+        <article class="article-body">
+          <p>Start with an opening paragraph that states the problem and why it matters. Keep it specific and grounded in the context of real sermon note-taking.</p>
+          <blockquote>
+            "A good blog post should make one practical change feel obvious, not overwhelming."
+          </blockquote>
+          <h3>Suggested Post Structure</h3>
+          <ul>
+            <li>Opening: one pain point your reader feels during or after teaching.</li>
+            <li>Method: one clear workflow they can try this week.</li>
+            <li>Example: a concrete sample note layout or before/after snapshot.</li>
+            <li>Close: one action step and one reflection question.</li>
+          </ul>
+          <p>Add Scripture references, screenshots, and short pull quotes where useful. Keep paragraphs short so the post stays skimmable on mobile.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> Sermon Notes
+    </footer>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("on");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    document.getElementById("year").textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>

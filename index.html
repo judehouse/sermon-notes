@@ -667,6 +667,110 @@
       max-width: 42ch;
     }
 
+    .resource-feature {
+      margin-top: 0.32rem;
+    }
+
+    .resource-feature-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .resource-feature-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--card), rgba(255, 255, 255, 0.4));
+      border-radius: 10px;
+      padding: 1rem;
+      display: grid;
+      gap: 0.64rem;
+    }
+
+    .resource-feature-kicker {
+      color: #6b6b78;
+      font-size: 0.83rem;
+      margin-bottom: 0.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .resource-feature-title {
+      font-size: clamp(1.36rem, 2.45vw, 2rem);
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      max-width: 32ch;
+    }
+
+    .resource-feature-summary {
+      color: #33333d;
+      max-width: 70ch;
+      font-size: 0.99rem;
+    }
+
+    .resource-feature-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 0.14rem;
+    }
+
+    .resource-preview-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.46));
+      border-radius: 10px;
+      padding: 1rem;
+      display: grid;
+      gap: 0.72rem;
+      align-content: start;
+    }
+
+    .resource-preview-kicker {
+      color: #6b6b78;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.045em;
+    }
+
+    .resource-preview-shell {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.85rem;
+      background: rgba(255, 255, 255, 0.58);
+      display: grid;
+      gap: 0.56rem;
+    }
+
+    .resource-preview-shell-meta {
+      color: #5f5f6b;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .resource-preview-title {
+      font-size: 1.18rem;
+      line-height: 1.11;
+      letter-spacing: -0.02em;
+      max-width: 28ch;
+    }
+
+    .resource-preview-title a {
+      border-bottom: 1px dashed transparent;
+      transition: border-color 170ms ease;
+    }
+
+    .resource-preview-title a:hover,
+    .resource-preview-title a:focus-visible {
+      border-bottom-color: #1d1d26;
+    }
+
+    .resource-preview-summary {
+      font-size: 0.94rem;
+      color: #373741;
+      line-height: 1.36;
+    }
+
     .faq-list {
       display: grid;
       gap: 0.8rem;
@@ -1120,6 +1224,32 @@
         </div>
       </section>
 
+      <section id="resources" class="section reveal resource-feature" aria-label="Featured resource from the blog archive">
+        <h3 class="heading-doodle">Fresh <span class="doodle-word">Resources<span class="heading-doodle-art" aria-hidden="true"><img class="doodle-icon underline" src="assets/heading-underline.svg" alt=""><img class="doodle-icon arrow-right" src="assets/heading-arrow-right.svg" alt=""></span></span></h3>
+        <div class="resource-feature-layout media-text">
+          <article class="resource-feature-card">
+            <p class="resource-feature-kicker">Featured Resource</p>
+            <h4 id="resource-feature-title" class="resource-feature-title">How to Take Sermon Notes You Will Actually Review</h4>
+            <p id="resource-feature-summary" class="resource-feature-summary">Learn a simple sermon note framework that helps you capture key points, review them during the week, and apply them in real life.</p>
+            <div class="resource-feature-actions">
+              <a class="cta-btn" href="/resources.html">Read in Resources</a>
+              <a class="btn-soft" href="/resources.html">Browse All Resources</a>
+            </div>
+          </article>
+          <article class="resource-preview-card" aria-label="Blog post preview">
+            <p class="resource-preview-kicker">Blog Preview</p>
+            <div class="resource-preview-shell">
+              <p class="resource-preview-shell-meta">From Resources Archive</p>
+              <h4 class="resource-preview-title">
+                <a id="resource-preview-title-link" href="/resources/how-to-take-sermon-notes-you-will-actually-review.html">How to Take Sermon Notes You Will Actually Review</a>
+              </h4>
+              <p id="resource-preview-summary" class="resource-preview-summary">Learn a simple sermon note framework that helps you capture key points, review them during the week, and apply them in real life.</p>
+            </div>
+            <a id="resource-preview-read-link" class="cta-btn" href="/resources/how-to-take-sermon-notes-you-will-actually-review.html">Read More</a>
+          </article>
+        </div>
+      </section>
+
       <section class="mockup-band reveal" aria-label="Sermon Notes angled iPad mockup">
         <figure class="mockup-band-figure">
           <img src="assets/ipad-mockup-1.png" alt="Sermon Notes app shown on iPad mockup">
@@ -1218,6 +1348,100 @@
       window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", onScroll);
       updateParallax();
+    }
+
+    const resourcePosts = [
+      {
+        title: "How to Take Sermon Notes You Will Actually Review",
+        summary: "Learn a simple sermon note framework that helps you capture key points, review them during the week, and apply them in real life.",
+        url: "/resources/how-to-take-sermon-notes-you-will-actually-review.html"
+      },
+      {
+        title: "Cornell Method for Sermon Notes: A Practical Guide",
+        summary: "Use the Cornell note-taking method for sermons to improve focus, review faster, and remember what you heard throughout the week.",
+        url: "/resources/cornell-method-for-sermon-notes.html"
+      },
+      {
+        title: "Best Digital Sermon Note-Taking Setup for Consistency",
+        summary: "Build a clean digital sermon note setup that is fast in live teaching, easy to search, and practical for weekly review.",
+        url: "/resources/best-digital-sermon-note-taking-setup.html"
+      },
+      {
+        title: "How to Organize Bible Study Notes So You Can Find Anything Fast",
+        summary: "Organize Bible study notes with a simple structure, tags, and review rhythm so important insights are easy to find later.",
+        url: "/resources/how-to-organize-bible-study-notes.html"
+      },
+      {
+        title: "A Simple Cross-Reference System for Bible Study Notes",
+        summary: "Learn how to capture and connect cross-references in your notes without slowing down during sermons or personal study.",
+        url: "/resources/cross-reference-system-for-bible-study.html"
+      },
+      {
+        title: "The Weekly Sermon Review Routine That Builds Real Retention",
+        summary: "Use this weekly sermon review routine to remember teaching points, apply Scripture, and strengthen spiritual consistency.",
+        url: "/resources/weekly-sermon-review-routine.html"
+      },
+      {
+        title: "How to Turn Personal Bible Study Notes Into Small Group Discussion Guides",
+        summary: "Convert personal Bible study notes into practical small group material with clear structure, discussion prompts, and application steps.",
+        url: "/resources/bible-study-notes-for-small-groups.html"
+      },
+      {
+        title: "Sermon Note-Taking for Beginners: A Step-by-Step Starter Guide",
+        summary: "New to sermon notes? Use this beginner-friendly method to stay engaged during church and keep notes you can use later.",
+        url: "/resources/sermon-note-taking-for-beginners.html"
+      },
+      {
+        title: "How to Remember Sermons Better: 7 Practices That Work",
+        summary: "Improve sermon retention with seven practical habits that connect note-taking, review, and real-life application.",
+        url: "/resources/how-to-remember-sermons-better.html"
+      },
+      {
+        title: "10 Common Sermon Note Mistakes and How to Fix Them",
+        summary: "Avoid the most common sermon note mistakes with practical fixes that improve focus, organization, and weekly follow-through.",
+        url: "/resources/common-sermon-note-mistakes.html"
+      },
+      {
+        title: "How Pastors Can Prepare Teaching Notes That Serve the Congregation",
+        summary: "A practical framework for pastors to prepare teaching notes that are biblically grounded, clear in structure, and actionable for the church.",
+        url: "/resources/how-pastors-can-prepare-teaching-notes.html"
+      },
+      {
+        title: "How to Use Sermon Notes for Scripture Memory",
+        summary: "Turn sermon notes into a practical Scripture memory system with reference anchors, repetition loops, and weekly review prompts.",
+        url: "/resources/scripture-memory-with-sermon-notes.html"
+      },
+      {
+        title: "A Family Devotions Note Template Parents Can Use Each Week",
+        summary: "Use a simple family devotions note template to turn Sunday sermons into practical conversations with your kids.",
+        url: "/resources/family-devotions-note-template.html"
+      },
+      {
+        title: "Sermon Notes Tags and Search Guide: Build a Retrieval-First System",
+        summary: "Learn a practical tagging and search strategy for sermon notes so you can find key insights instantly when you need them.",
+        url: "/resources/sermon-notes-tags-and-search-guide.html"
+      },
+      {
+        title: "Infinite Canvas Note-Taking for Bible Study: When and How to Use It",
+        summary: "Discover how infinite canvas note-taking can improve Bible study by connecting themes, passages, and insights in one visual workspace.",
+        url: "/resources/infinite-canvas-note-taking-for-bible-study.html"
+      }
+    ];
+
+    const featureTitle = document.getElementById("resource-feature-title");
+    const featureSummary = document.getElementById("resource-feature-summary");
+    const previewTitleLink = document.getElementById("resource-preview-title-link");
+    const previewSummary = document.getElementById("resource-preview-summary");
+    const previewReadLink = document.getElementById("resource-preview-read-link");
+
+    if (featureTitle && featureSummary && previewTitleLink && previewSummary && previewReadLink && resourcePosts.length > 0) {
+      const randomPost = resourcePosts[Math.floor(Math.random() * resourcePosts.length)];
+      featureTitle.textContent = randomPost.title;
+      featureSummary.textContent = randomPost.summary;
+      previewTitleLink.textContent = randomPost.title;
+      previewTitleLink.href = randomPost.url;
+      previewSummary.textContent = randomPost.summary;
+      previewReadLink.href = randomPost.url;
     }
 
   </script>
