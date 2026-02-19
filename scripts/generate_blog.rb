@@ -176,6 +176,23 @@ def nav_html
   HTML
 end
 
+def reveal_script
+  <<~HTML
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("on");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+  HTML
+end
+
 def post_template(post, article_html, prev_post, next_post)
   keyword_tags = post[:keywords].first(3).map { |keyword| "<span class=\"tag\">#{html_escape(keyword)}</span>" }.join
   prev_link = prev_post ? "<a class=\"btn-soft\" href=\"/resources/#{html_escape(prev_post[:slug])}.html\">&larr; #{html_escape(prev_post[:title])}</a>" : "<span></span>"
@@ -202,7 +219,7 @@ def post_template(post, article_html, prev_post, next_post)
       <div class="site">
         #{nav_html}
         <main id="top">
-          <section class="post-layout">
+          <section class="post-layout reveal">
             <article class="article-wrap">
               <p class="post-meta">Resource Article</p>
               <h1 class="post-title">#{html_escape(post[:title])}</h1>
@@ -240,6 +257,7 @@ def post_template(post, article_html, prev_post, next_post)
         </main>
         <footer>&copy; #{Time.now.year} Sermon Notes</footer>
       </div>
+      #{reveal_script}
     </body>
     </html>
   HTML
@@ -257,7 +275,7 @@ def archive_template(posts)
 
     tags = post[:keywords].first(3).map { |kw| "<span class=\"tag\">#{html_escape(kw)}</span>" }.join
     <<~CARD
-      <article class="card archive-card"#{card_id ? " id=\"#{card_id}\"" : ""}>
+      <article class="card archive-card reveal"#{card_id ? " id=\"#{card_id}\"" : ""}>
         <p class="post-meta">Resource ##{idx + 1}</p>
         <h2><a href="/resources/#{html_escape(post[:slug])}.html">#{html_escape(post[:title])}</a></h2>
         <p>#{html_escape(post[:description])}</p>
@@ -288,8 +306,12 @@ def archive_template(posts)
       <div class="site">
         #{nav_html}
         <main id="top">
-          <section class="hero">
-            <h1>Practical <span class="hl">Resources</span> for better sermon and Bible study notes.</h1>
+          <section class="hero reveal">
+            <h1>
+              <span class="hero-chunk">Practical <span class="hl" style="--hl-delay: 330ms;">Resources</span></span>
+              <span class="hero-chunk">for better sermon and</span>
+              <span class="hero-chunk">Bible study notes.</span>
+            </h1>
             <p>These articles are written to help readers capture, organize, and apply Scripture with consistency. Browse by topic and use what fits your workflow.</p>
           </section>
           <section class="archive-grid">
@@ -298,6 +320,7 @@ def archive_template(posts)
         </main>
         <footer>&copy; #{Time.now.year} Sermon Notes</footer>
       </div>
+      #{reveal_script}
     </body>
     </html>
   HTML

@@ -29,7 +29,7 @@
 </header>
 
     <main id="top">
-      <section class="post-layout">
+      <section class="post-layout reveal">
         <article class="article-wrap">
           <p class="post-meta">Resource Article</p>
           <h1 class="post-title">How to Take Sermon Notes You Will Actually Review</h1>
@@ -112,5 +112,18 @@
     </main>
     <footer>&copy; 2026 Sermon Notes</footer>
   </div>
+  <script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("on");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>
+
 </body>
 </html>

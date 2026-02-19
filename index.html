@@ -126,10 +126,9 @@
       height: 0.46em;
       border-bottom: 2px solid var(--mint);
       border-radius: 80% 70%;
-      transform: scaleX(0) rotate(-2deg);
-      transform-origin: left center;
+      clip-path: inset(0 100% 0 0);
       opacity: 0;
-      transition: transform 360ms steps(4, jump-end), opacity 220ms steps(2, end);
+      transition: clip-path 240ms steps(7, jump-end), opacity 130ms steps(2, end);
       pointer-events: none;
     }
 
@@ -141,8 +140,11 @@
       padding: 0.58rem 1.04rem;
       font-size: 1.02rem;
       font-weight: 700;
-      line-height: 1;
+      line-height: 1.02;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transform: translate3d(0, 0, 0);
       transition:
         background-color 290ms steps(11, end),
@@ -186,10 +188,9 @@
       height: 0.28em;
       border-bottom: 2px solid var(--mint);
       border-radius: 78% 70%;
-      transform: scaleX(0) rotate(-2deg);
-      transform-origin: left center;
+      clip-path: inset(0 100% 0 0);
       opacity: 0;
-      transition: transform 360ms steps(4, jump-end), opacity 220ms steps(2, end);
+      transition: clip-path 240ms steps(7, jump-end), opacity 130ms steps(2, end);
       pointer-events: none;
     }
 
@@ -197,7 +198,7 @@
     .btn-soft:focus-visible::after,
     .nav-link:hover::after,
     .nav-link:focus-visible::after {
-      transform: scaleX(1) rotate(-2deg);
+      clip-path: inset(0 0 0 0);
       opacity: 1;
     }
 
@@ -396,6 +397,13 @@
       justify-content: center;
     }
 
+    .mockup-band--apple {
+      min-height: clamp(132vh, 152vh, 182vh);
+      align-items: flex-start;
+      margin-top: 0.55rem;
+      margin-bottom: 2.4rem;
+    }
+
     .mockup-band-figure {
       border: none;
       border-radius: 0;
@@ -404,10 +412,234 @@
       width: min(820px, 92%);
     }
 
+    .mockup-band-figure--apple {
+      position: sticky;
+      top: clamp(2rem, 11vh, 7rem);
+      width: min(1040px, 98%);
+      overflow: visible;
+      z-index: 4;
+    }
+
     .mockup-band-figure img {
       width: 100%;
       height: auto;
-      animation: subtle-drift 12.5s steps(20, end) infinite;
+      animation: none;
+    }
+
+    .apple-scroll-device {
+      will-change: transform, opacity, filter;
+      transform: translate3d(0, 126px, 0) scale(0.82) rotate(-8deg);
+      opacity: 0.26;
+      filter: saturate(0.92) contrast(0.96) brightness(0.98);
+      transform-origin: center 58%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .apple-mobile-scene-dim {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9;
+    }
+
+    .apple-callouts {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 3;
+    }
+
+    .apple-callout {
+      --reveal: 0;
+      position: absolute;
+      max-width: 22rem;
+      color: #15151d;
+      opacity: var(--reveal);
+      transform:
+        translate3d(0, calc((1 - var(--reveal)) * 18px), 0)
+        scale(calc(0.97 + var(--reveal) * 0.03));
+    }
+
+    .apple-callout-title {
+      font-size: clamp(1.22rem, 2.15vw, 2.95rem);
+      font-weight: 820;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+
+    .apple-callout-sub {
+      font-size: clamp(0.82rem, 1.02vw, 1.58rem);
+      line-height: 1.08;
+      font-style: italic;
+      margin-top: 0.12rem;
+      color: #1f1f28;
+      opacity: var(--reveal);
+      transform: translate3d(0, calc((1 - var(--reveal)) * 9px), 0);
+    }
+
+    .apple-callout-line {
+      position: absolute;
+      top: 50%;
+      height: 2px;
+      background: rgba(240, 125, 221, 0.96);
+      border-radius: 999px;
+      opacity: var(--reveal);
+      clip-path: inset(0 calc((1 - var(--reveal)) * 100%) 0 0);
+      transform-origin: left center;
+      filter: saturate(1.1);
+    }
+
+    .apple-callout--left {
+      text-align: right;
+      transform-origin: right center;
+    }
+
+    .apple-callout--right {
+      text-align: left;
+      transform-origin: left center;
+    }
+
+    .apple-callout--left .apple-callout-line {
+      right: -11.4rem;
+      transform: translateY(-50%) rotate(3deg);
+    }
+
+    .apple-callout--right .apple-callout-line {
+      left: -11.2rem;
+      transform: translateY(-50%) rotate(-5deg);
+    }
+
+    .apple-callout--tools {
+      top: 7%;
+      left: -33%;
+    }
+
+    .apple-callout--tools .apple-callout-line {
+      width: 11.2rem;
+      transform: translateY(-50%) rotate(4deg);
+    }
+
+    .apple-callout--canvas {
+      top: 36%;
+      left: -40%;
+      max-width: 24rem;
+    }
+
+    .apple-callout--canvas .apple-callout-line {
+      width: 11.8rem;
+      transform: translateY(-50%) rotate(9deg);
+    }
+
+    .apple-callout--window {
+      top: 10%;
+      right: -33%;
+    }
+
+    .apple-callout--window .apple-callout-line {
+      width: 10.9rem;
+      transform: translateY(-50%) rotate(-9deg);
+    }
+
+    .apple-callout--tap {
+      top: 40%;
+      right: -33%;
+    }
+
+    .apple-callout--tap .apple-callout-line {
+      width: 10.9rem;
+      transform: translateY(-50%) rotate(6deg);
+    }
+
+    .apple-callout--markup {
+      top: 74%;
+      right: -33%;
+    }
+
+    .apple-callout--markup .apple-callout-line {
+      width: 10.7rem;
+      transform: translateY(-50%) rotate(-6deg);
+    }
+
+    .apple-mobile-callouts {
+      display: none;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 11;
+    }
+
+    .apple-mobile-callout {
+      --overlay-opacity: 0;
+      --overlay-y: 36px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: clamp(1.2rem, 6vw, 2.2rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      text-align: left;
+      opacity: var(--overlay-opacity);
+      transform: translate3d(0, var(--overlay-y), 0);
+      z-index: 12;
+    }
+
+    .apple-mobile-callout-label {
+      display: none;
+    }
+
+    .apple-mobile-callout-title {
+      font-size: clamp(1.92rem, 9.6vw, 3.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      font-weight: 840;
+      text-wrap: balance;
+      color: #fff;
+      max-width: 13.5ch;
+    }
+
+    .apple-mobile-callout-sub {
+      margin-top: 0.58rem;
+      font-size: clamp(1.16rem, 5.4vw, 1.58rem);
+      line-height: 1.04;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.92);
+      max-width: 22ch;
+    }
+
+    .apple-mobile-callout[data-mobile-reveal-index="0"],
+    .apple-mobile-callout[data-mobile-reveal-index="1"] {
+      padding-top: clamp(2.4rem, 8vh, 5.8rem);
+    }
+
+    .apple-mobile-callout[data-mobile-reveal-index="2"] {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 0;
+      padding-bottom: 12vh;
+    }
+
+    .apple-mobile-callout[data-mobile-reveal-index="2"] .apple-mobile-callout-title {
+      max-width: 14.8ch;
+    }
+
+    .apple-mobile-callout[data-mobile-reveal-index="2"] .apple-mobile-callout-sub {
+      max-width: 24ch;
+    }
+
+    .apple-mobile-callout[data-mobile-reveal-index="3"],
+    .apple-mobile-callout[data-mobile-reveal-index="4"] {
+      padding-top: clamp(2.8rem, 9vh, 6.6rem);
     }
 
     .section {
@@ -713,6 +945,12 @@
       flex-wrap: wrap;
       gap: 0.7rem;
       margin-top: 0.14rem;
+    }
+
+    #resource-feature-read-link {
+      min-height: 3.2rem;
+      padding-top: 0.66rem;
+      padding-bottom: 0.66rem;
     }
 
     .resource-preview-card {
@@ -1052,8 +1290,62 @@
         animation: none;
       }
 
-      .mockup-band-figure img {
-        animation: none;
+      .apple-scroll-device {
+        transform: none;
+        opacity: 1;
+        filter: none;
+      }
+
+      .apple-callout {
+        --reveal: 1;
+        transform: none;
+        opacity: 1;
+      }
+
+      .apple-callout-sub {
+        transform: none;
+        opacity: 1;
+      }
+
+      .apple-callout-line {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+      }
+
+      .apple-mobile-callout {
+        --overlay-opacity: 0;
+        --overlay-y: 0px;
+      }
+
+      .apple-mobile-callout:first-child {
+        --overlay-opacity: 1;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .apple-callouts {
+        display: none;
+      }
+
+      .apple-mobile-scene-dim {
+        display: block;
+      }
+
+      .mockup-band--apple {
+        min-height: 314vh;
+      }
+
+      .mockup-band-figure--apple {
+        top: 0;
+        width: 100%;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding-top: 0;
+      }
+
+      .apple-mobile-callouts {
+        display: block;
       }
     }
 
@@ -1090,11 +1382,48 @@
       .hero h1 {
         max-width: 16ch;
       }
+
+      .mockup-band--apple {
+        min-height: 338vh;
+      }
+
+      .mockup-band-figure--apple {
+        top: 0;
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      .apple-mobile-callouts {
+        inset: 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="nav-grid-overlay" aria-hidden="true"></div>
+  <div id="apple-mobile-scene-dim" class="apple-mobile-scene-dim" aria-hidden="true"></div>
+  <div id="apple-mobile-callouts" class="apple-mobile-callouts" aria-hidden="true">
+    <article class="apple-mobile-callout" data-mobile-reveal-index="0">
+      <p class="apple-mobile-callout-title">Tools for Intuitive Notetaking</p>
+      <p class="apple-mobile-callout-sub">Pencil, Eraser, Highlighter, Text, Selector</p>
+    </article>
+    <article class="apple-mobile-callout" data-mobile-reveal-index="1">
+      <p class="apple-mobile-callout-title">Infinite Canvas for Unlimited Space</p>
+      <p class="apple-mobile-callout-sub">Endless space, limitless connections.</p>
+    </article>
+    <article class="apple-mobile-callout" data-mobile-reveal-index="2">
+      <p class="apple-mobile-callout-title">Smart Verse Window</p>
+      <p class="apple-mobile-callout-sub">Easily read &amp; reference scripture.</p>
+    </article>
+    <article class="apple-mobile-callout" data-mobile-reveal-index="3">
+      <p class="apple-mobile-callout-title">Tap-to-View Scripture</p>
+      <p class="apple-mobile-callout-sub">Smart verse lookup to keep you focused.</p>
+    </article>
+    <article class="apple-mobile-callout" data-mobile-reveal-index="4">
+      <p class="apple-mobile-callout-title">Saved Markup Tools</p>
+      <p class="apple-mobile-callout-sub">Underline, Highlight, or freedraw. Notes are saved for each verse.</p>
+    </article>
+  </div>
   <div class="site">
     <header class="topbar">
       <a class="brand" href="#top" aria-label="Sermon Notes Home">
@@ -1232,7 +1561,7 @@
             <h4 id="resource-feature-title" class="resource-feature-title">How to Take Sermon Notes You Will Actually Review</h4>
             <p id="resource-feature-summary" class="resource-feature-summary">Learn a simple sermon note framework that helps you capture key points, review them during the week, and apply them in real life.</p>
             <div class="resource-feature-actions">
-              <a class="cta-btn" href="/resources.html">Read in Resources</a>
+              <a id="resource-feature-read-link" class="cta-btn" href="/resources/how-to-take-sermon-notes-you-will-actually-review.html">Read in Resources</a>
               <a class="btn-soft" href="/resources.html">Browse All Resources</a>
             </div>
           </article>
@@ -1250,9 +1579,36 @@
         </div>
       </section>
 
-      <section class="mockup-band reveal" aria-label="Sermon Notes angled iPad mockup">
-        <figure class="mockup-band-figure">
-          <img src="assets/ipad-mockup-1.png" alt="Sermon Notes app shown on iPad mockup">
+      <section class="mockup-band mockup-band--apple reveal" aria-label="Sermon Notes angled iPad mockup">
+        <figure class="mockup-band-figure mockup-band-figure--apple">
+          <img class="apple-scroll-device" src="assets/ipad-mockup-1.png" alt="Sermon Notes app shown on iPad mockup">
+          <div class="apple-callouts" aria-hidden="true">
+            <article class="apple-callout apple-callout--left apple-callout--tools" data-reveal-index="0">
+              <p class="apple-callout-title">Tools for Intuitive Notetaking</p>
+              <p class="apple-callout-sub">Pencil, Eraser, Highlighter, Text, Selector</p>
+              <span class="apple-callout-line"></span>
+            </article>
+            <article class="apple-callout apple-callout--left apple-callout--canvas" data-reveal-index="1">
+              <p class="apple-callout-title">Infinite Canvas for Unlimited Space</p>
+              <p class="apple-callout-sub">Endless space, limitless connections.</p>
+              <span class="apple-callout-line"></span>
+            </article>
+            <article class="apple-callout apple-callout--right apple-callout--window" data-reveal-index="2">
+              <p class="apple-callout-title">Smart Verse Window</p>
+              <p class="apple-callout-sub">Easily read &amp; reference scripture.</p>
+              <span class="apple-callout-line"></span>
+            </article>
+            <article class="apple-callout apple-callout--right apple-callout--tap" data-reveal-index="3">
+              <p class="apple-callout-title">Tap-to-View Scripture</p>
+              <p class="apple-callout-sub">Smart verse lookup to keep you focused.</p>
+              <span class="apple-callout-line"></span>
+            </article>
+            <article class="apple-callout apple-callout--right apple-callout--markup" data-reveal-index="4">
+              <p class="apple-callout-title">Saved Markup Tools</p>
+              <p class="apple-callout-sub">Underline, Highlight, or freedraw. Notes are saved for each verse.</p>
+              <span class="apple-callout-line"></span>
+            </article>
+          </div>
         </figure>
       </section>
 
@@ -1294,8 +1650,12 @@
     document.getElementById("year").textContent = String(new Date().getFullYear());
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobileAppleOverlayQuery = window.matchMedia("(max-width: 1200px)");
+    const globalSceneDim = document.getElementById("apple-mobile-scene-dim");
+    const globalMobileCallouts = Array.from(document.querySelectorAll("#apple-mobile-callouts .apple-mobile-callout"));
     const headingDoodles = Array.from(document.querySelectorAll(".heading-doodle"));
     const parallaxDevices = Array.from(document.querySelectorAll(".parallax-device"));
+    const appleScrollBands = Array.from(document.querySelectorAll(".mockup-band--apple"));
 
     if (reduceMotion) {
       headingDoodles.forEach((el) => el.classList.add("doodle-on"));
@@ -1348,6 +1708,194 @@
       window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", onScroll);
       updateParallax();
+    }
+
+    if (appleScrollBands.length > 0) {
+      if (reduceMotion) {
+        appleScrollBands.forEach((band) => {
+          const device = band.querySelector(".apple-scroll-device");
+          if (!device) return;
+          device.style.transform = "none";
+          device.style.opacity = "1";
+          device.style.filter = "none";
+          const mobileOverlayActive = mobileAppleOverlayQuery.matches;
+          if (globalSceneDim) {
+            globalSceneDim.style.opacity = "0";
+          }
+
+          globalMobileCallouts.forEach((callout, idx) => {
+            callout.style.setProperty("--overlay-opacity", mobileOverlayActive && idx === 0 ? "1" : "0");
+            callout.style.setProperty("--overlay-y", "0px");
+          });
+        });
+      } else {
+        let appleTicking = false;
+
+        const clamp01 = (value) => Math.max(0, Math.min(1, value));
+        const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3);
+        const easeInOutCubic = (value) => {
+          if (value < 0.5) return 4 * value * value * value;
+          return 1 - Math.pow(-2 * value + 2, 3) / 2;
+        };
+        const lerp = (from, to, t) => from + (to - from) * t;
+        const focusShots = [
+          { x: 112, y: 96, scale: 1.72, rotate: -2.8 },  // top-left tools
+          { x: 94, y: 16, scale: 1.66, rotate: -1.9 },   // left-center canvas
+          { x: -108, y: 84, scale: 1.74, rotate: 1.8 },  // top-right verse window
+          { x: -96, y: 14, scale: 1.68, rotate: 1.1 },   // right-center verse tap
+          { x: -112, y: -74, scale: 1.76, rotate: 0.4 }  // bottom-right markup
+        ];
+
+        const updateAppleScroll = () => {
+          const vh = window.innerHeight;
+          let dimOpacity = "0";
+          const mobileStart = 0.12;
+          const mobileSegmentLength = 0.145;
+
+          appleScrollBands.forEach((band) => {
+            const device = band.querySelector(".apple-scroll-device");
+            if (!device) return;
+            const callouts = Array.from(band.querySelectorAll(".apple-callout"));
+            const mobileCallouts = globalMobileCallouts;
+            const mobileOverlayActive = mobileAppleOverlayQuery.matches;
+
+            const rect = band.getBoundingClientRect();
+            const desktopRawProgress = (vh * 0.86 - rect.top) / (rect.height + vh * 0.42);
+            const desktopProgress = clamp01(desktopRawProgress);
+            const mobileRawProgress = (vh * 0.92 - rect.top) / rect.height;
+            const mobileProgress = clamp01(mobileRawProgress);
+
+            let x = 0;
+            let y = 0;
+            let scale = 1;
+            let rotate = 0;
+            let opacity = 1;
+            let saturation = 1;
+            let contrast = 1;
+
+            if (!mobileOverlayActive) {
+              if (desktopProgress < 0.74) {
+                const t = easeOutCubic(desktopProgress / 0.74);
+                y = lerp(126, -18, t);
+                scale = lerp(0.82, 1.13, t);
+                rotate = lerp(-8, 1.4, t);
+                opacity = lerp(0.26, 1, t);
+                saturation = lerp(0.92, 1.04, t);
+                contrast = lerp(0.96, 1.02, t);
+              } else {
+                const t = easeOutCubic((desktopProgress - 0.74) / 0.26);
+                y = lerp(-18, -4, t);
+                scale = lerp(1.13, 1.08, t);
+                rotate = lerp(1.4, 0, t);
+                opacity = 1;
+                saturation = lerp(1.04, 1, t);
+                contrast = lerp(1.02, 1, t);
+              }
+            } else {
+              const shotSpan = mobileSegmentLength * (focusShots.length - 1);
+              const firstShot = focusShots[0];
+
+              if (mobileProgress < mobileStart) {
+                const t = easeOutCubic(mobileProgress / mobileStart);
+                x = lerp(0, firstShot.x, t);
+                y = lerp(84, firstShot.y, t);
+                scale = lerp(0.94, firstShot.scale, t);
+                rotate = lerp(-1.8, firstShot.rotate, t);
+              } else {
+                const shotProgress = clamp01((mobileProgress - mobileStart) / shotSpan) * (focusShots.length - 1);
+                const leftIndex = Math.floor(shotProgress);
+                const rightIndex = Math.min(leftIndex + 1, focusShots.length - 1);
+                const blend = easeInOutCubic(shotProgress - leftIndex);
+                const left = focusShots[leftIndex];
+                const right = focusShots[rightIndex];
+
+                x = lerp(left.x, right.x, blend);
+                y = lerp(left.y, right.y, blend);
+                scale = lerp(left.scale, right.scale, blend);
+                rotate = lerp(left.rotate, right.rotate, blend);
+              }
+
+              opacity = 1;
+              saturation = 1.04;
+              contrast = 1.02;
+            }
+
+            device.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) scale(${scale.toFixed(4)}) rotate(${rotate.toFixed(2)}deg)`;
+            device.style.opacity = opacity.toFixed(3);
+            device.style.filter = `saturate(${saturation.toFixed(3)}) contrast(${contrast.toFixed(3)})`;
+
+            if (callouts.length > 0 && !mobileOverlayActive) {
+              const baseStart = 0.42;
+              const stepGap = 0.10;
+              const windowSpan = 0.34;
+
+              callouts.forEach((callout, idx) => {
+                const start = baseStart + idx * stepGap;
+                const t = clamp01((desktopProgress - start) / windowSpan);
+                const reveal = easeOutCubic(t);
+                callout.style.setProperty("--reveal", reveal.toFixed(3));
+              });
+            } else if (callouts.length > 0) {
+              callouts.forEach((callout) => callout.style.setProperty("--reveal", "0"));
+            }
+
+            if (mobileCallouts.length > 0 && mobileOverlayActive) {
+              const sequenceEnd = mobileStart + mobileSegmentLength * mobileCallouts.length;
+              const sequenceActive = mobileProgress > mobileStart && mobileProgress < sequenceEnd;
+
+              mobileCallouts.forEach((callout, idx) => {
+                const segmentProgress = (mobileProgress - (mobileStart + idx * mobileSegmentLength)) / mobileSegmentLength;
+                const local = clamp01(segmentProgress);
+
+                let cardOpacity = 0;
+                let cardY = 48;
+
+                if (local > 0 && local < 0.2) {
+                  const t = easeOutCubic(local / 0.2);
+                  cardOpacity = t;
+                  cardY = lerp(48, 0, t);
+                } else if (local >= 0.2 && local < 0.68) {
+                  cardOpacity = 1;
+                  cardY = 0;
+                } else if (local >= 0.68 && local <= 1) {
+                  const t = easeOutCubic((local - 0.68) / 0.32);
+                  cardOpacity = 1 - t;
+                  cardY = lerp(0, -120, t);
+                }
+
+                callout.style.setProperty("--overlay-opacity", cardOpacity.toFixed(3));
+                callout.style.setProperty("--overlay-y", `${cardY.toFixed(2)}px`);
+              });
+
+              if (sequenceActive) {
+                dimOpacity = "0.66";
+              }
+            } else if (mobileCallouts.length > 0) {
+              mobileCallouts.forEach((callout) => {
+                callout.style.setProperty("--overlay-opacity", "0");
+                callout.style.setProperty("--overlay-y", "24px");
+              });
+            }
+          });
+
+          if (globalSceneDim) {
+            globalSceneDim.style.opacity = dimOpacity;
+          }
+
+          appleTicking = false;
+        };
+
+        const onAppleScroll = () => {
+          if (!appleTicking) {
+            window.requestAnimationFrame(updateAppleScroll);
+            appleTicking = true;
+          }
+        };
+
+        window.addEventListener("scroll", onAppleScroll, { passive: true });
+        window.addEventListener("resize", onAppleScroll);
+        updateAppleScroll();
+      }
     }
 
     const resourcePosts = [
@@ -1430,14 +1978,16 @@
 
     const featureTitle = document.getElementById("resource-feature-title");
     const featureSummary = document.getElementById("resource-feature-summary");
+    const featureReadLink = document.getElementById("resource-feature-read-link");
     const previewTitleLink = document.getElementById("resource-preview-title-link");
     const previewSummary = document.getElementById("resource-preview-summary");
     const previewReadLink = document.getElementById("resource-preview-read-link");
 
-    if (featureTitle && featureSummary && previewTitleLink && previewSummary && previewReadLink && resourcePosts.length > 0) {
+    if (featureTitle && featureSummary && featureReadLink && previewTitleLink && previewSummary && previewReadLink && resourcePosts.length > 0) {
       const randomPost = resourcePosts[Math.floor(Math.random() * resourcePosts.length)];
       featureTitle.textContent = randomPost.title;
       featureSummary.textContent = randomPost.summary;
+      featureReadLink.href = randomPost.url;
       previewTitleLink.textContent = randomPost.title;
       previewTitleLink.href = randomPost.url;
       previewSummary.textContent = randomPost.summary;
