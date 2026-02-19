@@ -442,6 +442,7 @@
       inset: 0;
       background: #000;
       opacity: 0;
+      transition: opacity 260ms ease;
       pointer-events: none;
       z-index: 9;
     }
@@ -621,22 +622,7 @@
       padding-top: clamp(2.4rem, 8vh, 5.8rem);
     }
 
-    .apple-mobile-callout[data-mobile-reveal-index="2"] {
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding-top: 0;
-      padding-bottom: 12vh;
-    }
-
-    .apple-mobile-callout[data-mobile-reveal-index="2"] .apple-mobile-callout-title {
-      max-width: 14.8ch;
-    }
-
-    .apple-mobile-callout[data-mobile-reveal-index="2"] .apple-mobile-callout-sub {
-      max-width: 24ch;
-    }
-
+    .apple-mobile-callout[data-mobile-reveal-index="2"],
     .apple-mobile-callout[data-mobile-reveal-index="3"],
     .apple-mobile-callout[data-mobile-reveal-index="4"] {
       padding-top: clamp(2.8rem, 9vh, 6.6rem);
@@ -1739,18 +1725,18 @@
         };
         const lerp = (from, to, t) => from + (to - from) * t;
         const focusShots = [
-          { x: 112, y: 96, scale: 1.72, rotate: -2.8 },  // top-left tools
-          { x: 94, y: 16, scale: 1.66, rotate: -1.9 },   // left-center canvas
-          { x: -108, y: 84, scale: 1.74, rotate: 1.8 },  // top-right verse window
-          { x: -96, y: 14, scale: 1.68, rotate: 1.1 },   // right-center verse tap
-          { x: -112, y: -74, scale: 1.76, rotate: 0.4 }  // bottom-right markup
+          { x: 284, y: 262, scale: 2.72, rotate: -3.8 }, // top-left tools
+          { x: 236, y: 112, scale: 2.58, rotate: -2.4 }, // left-center canvas
+          { x: -248, y: 238, scale: 2.68, rotate: 2.3 }, // top-right verse window
+          { x: -232, y: 90, scale: 2.54, rotate: 1.4 },  // right-center verse tap
+          { x: -272, y: -158, scale: 2.76, rotate: 0.6 } // bottom-right markup
         ];
 
         const updateAppleScroll = () => {
           const vh = window.innerHeight;
           let dimOpacity = "0";
-          const mobileStart = 0.12;
-          const mobileSegmentLength = 0.145;
+          const mobileStart = 0.5;
+          const mobileSegmentLength = 0.086;
 
           appleScrollBands.forEach((band) => {
             const device = band.querySelector(".apple-scroll-device");
@@ -1762,7 +1748,7 @@
             const rect = band.getBoundingClientRect();
             const desktopRawProgress = (vh * 0.86 - rect.top) / (rect.height + vh * 0.42);
             const desktopProgress = clamp01(desktopRawProgress);
-            const mobileRawProgress = (vh * 0.92 - rect.top) / rect.height;
+            const mobileRawProgress = (vh * 0.46 - rect.top) / (rect.height + vh * 0.08);
             const mobileProgress = clamp01(mobileRawProgress);
 
             let x = 0;
@@ -1794,13 +1780,15 @@
             } else {
               const shotSpan = mobileSegmentLength * (focusShots.length - 1);
               const firstShot = focusShots[0];
+              const mobileBaseScale = 1.54;
+              const mobileBaseY = 418;
 
               if (mobileProgress < mobileStart) {
-                const t = easeOutCubic(mobileProgress / mobileStart);
+                const t = easeInOutCubic(mobileProgress / mobileStart);
                 x = lerp(0, firstShot.x, t);
-                y = lerp(84, firstShot.y, t);
-                scale = lerp(0.94, firstShot.scale, t);
-                rotate = lerp(-1.8, firstShot.rotate, t);
+                y = lerp(mobileBaseY, firstShot.y, t);
+                scale = lerp(mobileBaseScale, firstShot.scale, t);
+                rotate = lerp(-2.4, firstShot.rotate, t);
               } else {
                 const shotProgress = clamp01((mobileProgress - mobileStart) / shotSpan) * (focusShots.length - 1);
                 const leftIndex = Math.floor(shotProgress);
@@ -1816,8 +1804,8 @@
               }
 
               opacity = 1;
-              saturation = 1.04;
-              contrast = 1.02;
+              saturation = 1.08;
+              contrast = 1.03;
             }
 
             device.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) scale(${scale.toFixed(4)}) rotate(${rotate.toFixed(2)}deg)`;
@@ -1841,7 +1829,9 @@
 
             if (mobileCallouts.length > 0 && mobileOverlayActive) {
               const sequenceEnd = mobileStart + mobileSegmentLength * mobileCallouts.length;
-              const sequenceActive = mobileProgress > mobileStart && mobileProgress < sequenceEnd;
+              const dimFadeIn = clamp01((mobileProgress - (mobileStart - 0.03)) / 0.09);
+              const dimFadeOut = clamp01((sequenceEnd + 0.03 - mobileProgress) / 0.07);
+              const sequenceDimOpacity = 0.7 * Math.min(dimFadeIn, dimFadeOut);
 
               mobileCallouts.forEach((callout, idx) => {
                 const segmentProgress = (mobileProgress - (mobileStart + idx * mobileSegmentLength)) / mobileSegmentLength;
@@ -1867,8 +1857,8 @@
                 callout.style.setProperty("--overlay-y", `${cardY.toFixed(2)}px`);
               });
 
-              if (sequenceActive) {
-                dimOpacity = "0.66";
+              if (sequenceDimOpacity > 0.01) {
+                dimOpacity = sequenceDimOpacity.toFixed(3);
               }
             } else if (mobileCallouts.length > 0) {
               mobileCallouts.forEach((callout) => {
